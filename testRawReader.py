@@ -88,9 +88,7 @@ except Exception as ex:
 
 process.source = cms.Source("FedRawDataInputSource",
     runNumber = cms.untracked.uint32(options.runNumber),
-    #getLSFromFilename = cms.untracked.bool(False),
     getLSFromFilename = cms.untracked.bool(True),
-    #testModeNoBuilderUnit = cms.untracked.bool(True),
     testModeNoBuilderUnit = cms.untracked.bool(False),
     verifyAdler32 = cms.untracked.bool(True),
     verifyChecksum = cms.untracked.bool(True),
@@ -99,8 +97,6 @@ process.source = cms.Source("FedRawDataInputSource",
     numBuffers = cms.untracked.uint32(2),
     eventChunkBlock = cms.untracked.uint32(1),
     fileListMode = cms.untracked.bool(True),
-    #fileListMode = cms.untracked.bool(False),
-    #fileNames = cms.untracked.vstring("file:///tmp/smorovic/run263284_ls0108_index000035.raw")
     fileNames = cms.untracked.vstring("file:run000000-all/run000000_ls0000_index000007.raw")
     )
 
@@ -113,11 +109,10 @@ process.PrescaleService = cms.Service( "PrescaleService",
                                        prescaleTable = cms.VPSet( 
                                          cms.PSet(  pathName = cms.string( "p1" ),
                                          prescales = cms.vuint32( 1)
+                                         ),
+                                         cms.PSet(  pathName = cms.string( "p2" ),
+                                         prescales = cms.vuint32( 1 )
                                          )
-                                         #,
-                                         #cms.PSet(  pathName = cms.string( "p2" ),
-                                         #prescales = cms.vuint32( 1 )
-                                         #)
                                        ),
                                        lvl1DefaultLabel = cms.string( "Default" ),
                                        lvl1Labels = cms.vstring( 'Default' )
@@ -126,32 +121,34 @@ process.PrescaleService = cms.Service( "PrescaleService",
 process.filter1 = cms.EDFilter("HLTPrescaler",
                                L1GtReadoutRecordTag = cms.InputTag( "hltGtDigis" )
                                )
-#process.filter2 = cms.EDFilter("HLTPrescaler",
-                               #L1GtReadoutRecordTag = cms.InputTag( "hltGtDigis" )
-                               #)
+process.filter2 = cms.EDFilter("HLTPrescaler",
+                               L1GtReadoutRecordTag = cms.InputTag( "hltGtDigis" )
+                               )
 
 process.a = cms.EDAnalyzer("ExceptionGenerator",
     defaultAction = cms.untracked.int32(0),
-    defaultQualifier = cms.untracked.int32(58))
+    defaultQualifier = cms.untracked.int32(58)
+    )
 
-#process.b = cms.EDAnalyzer("ExceptionGenerator",
-    #defaultAction = cms.untracked.int32(0),
-    #defaultQualifier = cms.untracked.int32(5))
+
+
+process.b = cms.EDAnalyzer("ExceptionGenerator",
+    defaultAction = cms.untracked.int32(0),
+    defaultQualifier = cms.untracked.int32(5))
 
 process.p1 = cms.Path(process.a*process.filter1)
-#process.p2 = cms.Path(process.b*process.filter2)
+process.p2 = cms.Path(process.b*process.filter2)
 
 process.streamA = cms.OutputModule("EvFOutputModule",
     SelectEvents = cms.untracked.PSet(SelectEvents = cms.vstring( 'p1' ))
 )
 
-#process.streamB = cms.OutputModule("EvFOutputModule",
-    #SelectEvents = cms.untracked.PSet(SelectEvents = cms.vstring( 'p2' ))
-#)
+process.streamB = cms.OutputModule("EvFOutputModule",
+    SelectEvents = cms.untracked.PSet(SelectEvents = cms.vstring( 'p2' ))
+)
 
-#process.ep = cms.EndPath(process.streamA+process.streamB)
+process.ep = cms.EndPath(process.streamA+process.streamB)
 
-process.ep = cms.EndPath(process.streamA)
 
 
 
