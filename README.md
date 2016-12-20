@@ -16,4 +16,8 @@ Example:
 
     cmsRun testRawReader.py
 
+    cmsRun reco.py  inputFiles=file:output/run100000/run100000_ls0001_streamA_pid19674.dat
+    
 
+    git cms-addpkg EventFilter/Utilities/
+    
