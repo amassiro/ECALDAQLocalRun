@@ -5,7 +5,7 @@ import os
 options = VarParsing.VarParsing ('analysis')
 
 options.register ('runNumber',
-                  0, # default value
+                  100000, # default value
                   VarParsing.VarParsing.multiplicity.singleton,
                   VarParsing.VarParsing.varType.int,          # string, int, or float
                   "Run Number")
@@ -97,7 +97,9 @@ process.source = cms.Source("FedRawDataInputSource",
     numBuffers = cms.untracked.uint32(2),
     eventChunkBlock = cms.untracked.uint32(1),
     fileListMode = cms.untracked.bool(True),
-    fileNames = cms.untracked.vstring("file:run000000-all/run000000_ls0000_index000007.raw")
+    #fileNames = cms.untracked.vstring("file:run000000-all/run000000_ls0000_index000007.raw")
+    #fileNames = cms.untracked.vstring("file:run000001/run000001_ls0001_index000007.raw")
+    fileNames = cms.untracked.vstring("file:run100000/run100000_ls0001_index000007.raw")
     )
 
 
