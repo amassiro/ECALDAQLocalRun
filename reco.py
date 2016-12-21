@@ -69,19 +69,36 @@ process.ecalDigis_step = cms.Path(process.ecalDigis)
 process.multifit = cms.Path(process.ecalMultiFitUncalibRecHit)
 process.weights = cms.Path(process.ecalUncalibRecHit)
 
-process.endjob_step = cms.EndPath(process.endOfProcess)
+#process.endjob_step = cms.EndPath(process.endOfProcess)
 
-process.dump = cms.EDAnalyzer("EventContentAnalyzer")
-process.dump_step = cms.Path(process.dump)
 
-if 'digis' in make_collections and 'rechits' in make_collections:
-    process.schedule = cms.Schedule(process.ecalDigis_step,process.multifit,process.weights,process.endjob_step)
-elif 'digis' in make_collections:
-    process.schedule = cms.Schedule(process.ecalDigis_step,process.endjob_step)
-elif 'rechits' in make_collections:
-    process.schedule = cms.Schedule(process.multifit,process.weights,process.endjob_step)
-else:
-    process.schedule = cms.Schedule(process.endjob_step)
+process.RECOSIMoutput = cms.OutputModule("PoolOutputModule",
+    dataset = cms.untracked.PSet(
+        dataTier = cms.untracked.string(''),
+        filterName = cms.untracked.string('')
+    ),
+    eventAutoFlushCompressedSize = cms.untracked.int32(5242880),
+    fileName = cms.untracked.string('reco_RECO.root'),
+    outputCommands = cms.untracked.vstring("keep *"),
+    splitLevel = cms.untracked.int32(0)
+)
+
+
+process.endjob_step = cms.EndPath(process.RECOSIMoutput)
+
+
+#process.dump = cms.EDAnalyzer("EventContentAnalyzer")
+#process.dump_step = cms.Path(process.dump)
+
+#if 'digis' in make_collections and 'rechits' in make_collections:
+    #process.schedule = cms.Schedule(process.ecalDigis_step,process.multifit,process.weights, process.endjob_step)
+#elif 'digis' in make_collections:
+    #process.schedule = cms.Schedule(process.ecalDigis_step, process.endjob_step)
+#elif 'rechits' in make_collections:
+    #process.schedule = cms.Schedule(process.multifit,process.weights, process.endjob_step)
+#else:
+    #process.schedule = cms.Schedule(process.endjob_step)
+
 
 
 
