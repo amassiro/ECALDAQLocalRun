@@ -47,3 +47,6 @@ Now merge by hand the output:
     cmsRun reco.py  inputFiles=file:output/run100000/run100000_ALL.dat
     
 
+
+    cmsRun reco.unpacker.py  inputFiles=file:output/run100000/run100000_ALL.dat
+    
