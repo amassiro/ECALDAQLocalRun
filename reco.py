@@ -48,6 +48,10 @@ import EventFilter.EcalRawToDigi.EcalUnpackerData_cfi
 process.ecalDigis = EventFilter.EcalRawToDigi.EcalUnpackerData_cfi.ecalEBunpacker.clone()
 process.ecalDigis.DoRegional = False
 
+process.ecalDigis.silentMode = False
+
+
+
 make_collections = ['digis']
 
 use_raw_dat = True
@@ -90,14 +94,14 @@ process.endjob_step = cms.EndPath(process.RECOSIMoutput)
 #process.dump = cms.EDAnalyzer("EventContentAnalyzer")
 #process.dump_step = cms.Path(process.dump)
 
-#if 'digis' in make_collections and 'rechits' in make_collections:
-    #process.schedule = cms.Schedule(process.ecalDigis_step,process.multifit,process.weights, process.endjob_step)
-#elif 'digis' in make_collections:
-    #process.schedule = cms.Schedule(process.ecalDigis_step, process.endjob_step)
-#elif 'rechits' in make_collections:
-    #process.schedule = cms.Schedule(process.multifit,process.weights, process.endjob_step)
-#else:
-    #process.schedule = cms.Schedule(process.endjob_step)
+if 'digis' in make_collections and 'rechits' in make_collections:
+    process.schedule = cms.Schedule(process.ecalDigis_step,process.multifit,process.weights, process.endjob_step)
+elif 'digis' in make_collections:
+    process.schedule = cms.Schedule(process.ecalDigis_step, process.endjob_step)
+elif 'rechits' in make_collections:
+    process.schedule = cms.Schedule(process.multifit,process.weights, process.endjob_step)
+else:
+    process.schedule = cms.Schedule(process.endjob_step)
 
 
 
