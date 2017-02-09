@@ -19,7 +19,9 @@ How:
     git clone git@github.com:amassiro/ECALDAQLocalRun.git
 
     
-    
+
+Only in CMSSW 8XY release
+<<---
 need to put:
 
     eventRunNumber_ = runNumber_;
@@ -32,7 +34,8 @@ in the file:
 
     FedRawDataInputSource.cc
 
-    
+--->>
+
 
 Example:
 
