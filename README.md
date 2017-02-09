@@ -44,17 +44,27 @@ Example:
 
 Now merge by hand the output:
 
-    cat output/run100000/run100000_ls0000_streamA_pid05766.ini > output/run100000/run100000_ALL.dat
-    cat output/run100000/run100000_ls0001_streamA_pid05766.dat >> output/run100000/run100000_ALL.dat
+    cat output/run100000/run100000_ls0000_streamA_pid28629.ini > output/run100000/run100000_ALL.dat
+    cat output/run100000/run100000_ls0001_streamA_pid28629.dat >> output/run100000/run100000_ALL.dat
 
+    
+    cat output/run1000025944/run1000025944_ls0001_streamA_pid03886.ini > output/run100000/run100000_904_ALL.dat
+    cat output/run1000025944/run1000025944_ls0001_streamA_pid03886.dat >> output/run100000/run100000_904_ALL.dat
+
+    
+    
 Check if data are good:
 
     ./dumpRaw -f output/run100000/run100000_ALL.dat
+    
+    ./dumpRaw -f output/run100000/run100000_904_ALL.dat
     
 
 Run reco:
 
     cmsRun reco.py  inputFiles=file:output/run100000/run100000_ALL.dat
+
+    cmsRun reco.py  inputFiles=file:output/run100000/run100000_904_ALL.dat
     
 
 

@@ -99,7 +99,11 @@ process.source = cms.Source("FedRawDataInputSource",
     fileListMode = cms.untracked.bool(True),
     #fileNames = cms.untracked.vstring("file:run000000-all/run000000_ls0000_index000007.raw")
     #fileNames = cms.untracked.vstring("file:run000001/run000001_ls0001_index000007.raw")
-    fileNames = cms.untracked.vstring("file:run100000/run100000_ls0001_index000007.raw")
+    #fileNames = cms.untracked.vstring("file:run100000/run100000_ls0001_index000007.raw")
+    
+    # from 904
+    fileNames = cms.untracked.vstring("file:run1000025944/run1000025944_ls0001_index000000.raw")
+    
     )
 
 
