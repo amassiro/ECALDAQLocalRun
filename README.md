@@ -71,3 +71,8 @@ Run reco:
 
     cmsRun reco.unpacker.py  inputFiles=file:output/run100000/run100000_ALL.dat
     
+
+    
+Draw:
+
+    python draw.py
