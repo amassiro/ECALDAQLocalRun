@@ -35,12 +35,37 @@ print " ciao "
 
 
 
+# it works the following:
+#for event in events:
+     #print " event ... "
+     #event.getByLabel (label, handle)
+     #ebdigi = handle.product()
+     #print " ebdigi = ", ebdigi
+     #print " ebdigi.size() = ", ebdigi.size()
+     
+     #for idigi in range(len (ebdigi)) :
+       #print  " ---> [", idigi, "] -> ", float((ebdigi[idigi][0]) & 0xFFF)
+       
+
 for event in events:
-     print " event ... "
-     event.getByLabel (label, handle)
-     ebdigi = handle.product()
-     print " ebdigi = ", ebdigi
-     print " ebdigi.size() = ", ebdigi.size()
+  print "event = ", event
+  
+  event.getByLabel (label, handle)
+  ebdigi = handle.product()
+  
+  for isample in range (10) :    
+    print " [" , isample, "] = ", ((ebdigi[0][isample]) & 0xFFF)
+  
+
+       
+     #for rh in ebrechits:
+       #print rh.pedestal()
+       #print rh.amplitude(),rh.pedestal(),rh.flags(),rh.outOfTimeAmplitude(4),rh.outOfTimeAmplitude(5),rh.outOfTimeAmplitude( 6)
+               
+
+     #for idigi in len(ebdigi.size()) :
+         #FillDigi((*ebdigis)[i],ebrechits,w_ebrechits);
+     
      
        #for (uint i=0; i<ebdigis->size(); i++) FillDigi((*ebdigis)[i],ebrechits,w_ebrechits);
 
