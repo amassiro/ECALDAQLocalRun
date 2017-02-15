@@ -9,8 +9,11 @@ handle  = Handle ('EBDigiCollection')
 label = ("ecalDigis","ebDigis")
 
        
-max_events = 100
+max_events = 10000
 num_events = 0
+
+noise = ROOT.TH1F("noise", "noise", 100, 0, 4)
+pedestal = ROOT.TH1F("pedestal", "pedestal", 1000, 0, 1000)
 
 for event in events:
   #print "event = ", event
@@ -28,23 +31,25 @@ for event in events:
       gr.SetPoint(isample,isample*25,  ((ebdigi[0][isample]) & 0xFFF) );
   
     if num_events%5 == 1 :
-     color = ROOT.kRed -10 + num_events%15
+     color = ROOT.kRed -9 + num_events%13
     elif num_events%5 == 2 :
-     color = ROOT.kCyan -10 + num_events%15
+     color = ROOT.kCyan -9 + num_events%13
     elif num_events%5 == 3 :
-     color = ROOT.kMagenta -10 + num_events%15
+     color = ROOT.kMagenta -9 + num_events%13
     elif num_events%5 == 4 :
-     color = ROOT.kGreen -10 + num_events%15
+     color = ROOT.kGreen -9 + num_events%13
     else :
-     color = ROOT.kAzure -10 + num_events%15
+     color = ROOT.kAzure -9 + num_events%13
 
 
-    gr.SetMarkerColor()
-    gr.SetLineColor  (ROOT.kRed -10 + num_events%20)
+    gr.SetMarkerColor(color)
+    gr.SetLineColor  (color)
     
     gr.SetMarkerSize(1)
     gr.SetMarkerStyle(20 + num_events%14)
 
+    noise.Fill(gr.GetRMS(2))
+    pedestal.Fill(gr.GetMean(2))
     mg.Add(gr)
   
   
@@ -54,10 +59,16 @@ print " analyzed = ", num_events
 cc = ROOT.TCanvas("cc","pulses from local run", 800, 600) 
 mg.Draw("apl")
 mg.GetXaxis().SetTitle("time [ns]")
-mg.GetYaxis().SetTitle("ADC")
+mg.GetYaxis().SetTitle("ADC count")
 
-mg.SaveAs("mg.root")
-#mg.Draw("a fb l3d")
- 
-     
+mg.SaveAs("mg.root") 
+  
+noise.SetLineColor(ROOT.kRed)
+noise.GetXaxis().SetTitle("ADC count")
+noise.SaveAs("noise.root")
+   
+  
+pedestal.SetLineColor(ROOT.kRed)
+pedestal.GetXaxis().SetTitle("ADC count")
+pedestal.SaveAs("pedestal.root")
    

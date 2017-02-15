@@ -42,6 +42,8 @@ Example:
 
     cmsRun testRawReader.py
 
+    input in /afs/cern.ch/user/d/dvalsecc/public/run1000026214
+
 
 Now merge by hand the output:
 
@@ -52,6 +54,7 @@ Now merge by hand the output:
     cat output/run1000025944/run1000025944_ls0001_streamA_pid03886.ini > output/run100000/run100000_904_ALL.dat
     cat output/run1000025944/run1000025944_ls0001_streamA_pid03886.dat >> output/run100000/run100000_904_ALL.dat
 
+    output in /afs/cern.ch/user/d/dvalsecc/public/stream904.dat
     
     
 Check if data are good:
@@ -67,7 +70,8 @@ Run reco:
 
     cmsRun reco.py  inputFiles=file:output/run100000/run100000_904_ALL.dat
     
-
+    output in /afs/cern.ch/user/d/dvalsecc/public/reco_RECO.root 
+    
 
     cmsRun reco.unpacker.py  inputFiles=file:output/run100000/run100000_ALL.dat
     
@@ -76,3 +80,7 @@ Run reco:
 Draw:
 
     python draw.py
+    
+    python drawPulses.py
+    
+    
