@@ -20,10 +20,16 @@ options.register ('buBaseDir',
 
 options.register ('fuBaseDir',
                   #'/fff/data', # default value
-                  './output/', # default value
+                  './output', # default value
                   VarParsing.VarParsing.multiplicity.singleton,
                   VarParsing.VarParsing.varType.string,          # string, int, or float
                   "BU base directory")
+
+options.register ('inputFolder',
+                  '/fff', # default value
+                  VarParsing.VarParsing.multiplicity.singleton,
+                  VarParsing.VarParsing.varType.string,          # string, int, or float
+                  "Input folder containing raw files")
 
 options.register ('numThreads',
                   1, # default value
@@ -85,6 +91,8 @@ except Exception as ex:
 #                          prescales = cms.vuint32( 0, 100)                                                                                                                   
 #                       )
 #    ))
+filenames = [options.inputFolder + "/"+ f for f in os.listdir(options.inputFolder) if f.endswith(".raw")]
+print filenames
 
 process.source = cms.Source("FedRawDataInputSource",
     runNumber = cms.untracked.uint32(options.runNumber),
@@ -97,17 +105,11 @@ process.source = cms.Source("FedRawDataInputSource",
     numBuffers = cms.untracked.uint32(2),
     eventChunkBlock = cms.untracked.uint32(1),
     fileListMode = cms.untracked.bool(True),
-    #fileNames = cms.untracked.vstring("file:run000000-all/run000000_ls0000_index000007.raw")
-    #fileNames = cms.untracked.vstring("file:run000001/run000001_ls0001_index000007.raw")
-    #fileNames = cms.untracked.vstring("file:run100000/run100000_ls0001_index000007.raw")
-    
-    # from 904
-    fileNames = cms.untracked.vstring("file:run1000025944/run1000025944_ls0001_index000000.raw")
+    fileNames = cms.untracked.vstring(*filenames)
     
     )
 
 
-#/afs/cern.ch/user/d/dvalsecc/public/event_data/ramdisk/run000000/run000000_ls0000_index000013.raw
 
 
 process.PrescaleService = cms.Service( "PrescaleService",

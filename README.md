@@ -40,7 +40,7 @@ in the file:
 
 Example:
 
-    cmsRun testRawReader.py
+    cmsRun RawReader.py inputFolder=....
 
     input in /afs/cern.ch/user/d/dvalsecc/public/run1000026214
 
