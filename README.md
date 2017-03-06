@@ -75,7 +75,9 @@ Run reco:
 
     cmsRun reco.unpacker.py  inputFiles=file:output/run100000/run100000_ALL.dat
     
+You can also run the entire procedure using one command:
 
+    python reco_procedure.py {input_rawfiles_ dir} {output_root_dir}
     
 Draw:
 

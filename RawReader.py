@@ -92,7 +92,6 @@ except Exception as ex:
 #                       )
 #    ))
 filenames = [options.inputFolder + "/"+ f for f in os.listdir(options.inputFolder) if f.endswith(".raw")]
-print filenames
 
 process.source = cms.Source("FedRawDataInputSource",
     runNumber = cms.untracked.uint32(options.runNumber),
