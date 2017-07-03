@@ -5,6 +5,7 @@ Where:
 
     /afs/cern.ch/user/a/amassiro/work/ECAL/DAQ/CMSSW_8_0_17/src/ECALDAQLocalRun
     /afs/cern.ch/user/a/amassiro/work/ECAL/DAQ/CMSSW_9_0_0_pre2/src/ECALDAQLocalRun
+    /afs/cern.ch/user/a/amassiro/work/ECAL/DAQ/CMSSW_9_2_4/src/ECALDAQLocalRun
     
 How:
 
