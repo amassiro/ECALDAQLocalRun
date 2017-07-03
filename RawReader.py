@@ -116,9 +116,6 @@ process.PrescaleService = cms.Service( "PrescaleService",
                                        prescaleTable = cms.VPSet( 
                                          cms.PSet(  pathName = cms.string( "p1" ),
                                          prescales = cms.vuint32( 1)
-                                         ),
-                                         cms.PSet(  pathName = cms.string( "p2" ),
-                                         prescales = cms.vuint32( 1 )
                                          )
                                        ),
                                        lvl1DefaultLabel = cms.string( "Default" ),
@@ -128,9 +125,6 @@ process.PrescaleService = cms.Service( "PrescaleService",
 process.filter1 = cms.EDFilter("HLTPrescaler",
                                L1GtReadoutRecordTag = cms.InputTag( "hltGtDigis" )
                                )
-process.filter2 = cms.EDFilter("HLTPrescaler",
-                               L1GtReadoutRecordTag = cms.InputTag( "hltGtDigis" )
-                               )
 
 process.a = cms.EDAnalyzer("ExceptionGenerator",
     defaultAction = cms.untracked.int32(0),
@@ -138,23 +132,14 @@ process.a = cms.EDAnalyzer("ExceptionGenerator",
     )
 
 
-
-process.b = cms.EDAnalyzer("ExceptionGenerator",
-    defaultAction = cms.untracked.int32(0),
-    defaultQualifier = cms.untracked.int32(5))
-
 process.p1 = cms.Path(process.a*process.filter1)
-process.p2 = cms.Path(process.b*process.filter2)
 
-process.streamA = cms.OutputModule("EvFOutputModule",
+process.streamDQM = cms.OutputModule("EvFOutputModule",
     SelectEvents = cms.untracked.PSet(SelectEvents = cms.vstring( 'p1' ))
 )
 
-process.streamB = cms.OutputModule("EvFOutputModule",
-    SelectEvents = cms.untracked.PSet(SelectEvents = cms.vstring( 'p2' ))
-)
 
-process.ep = cms.EndPath(process.streamA+process.streamB)
+process.ep = cms.EndPath(process.streamDQM)
 
 
 
